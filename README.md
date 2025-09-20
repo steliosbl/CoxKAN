@@ -13,7 +13,7 @@
 </p>
 
 This repository contains the codes accompanying the paper "CoxKAN: Kolmogorov-Arnold Networks for Interpretable, High-Performance Survival Analysis".
-- Paper: [ArXiv](https://arxiv.org/abs/2409.04290).
+- Paper: [PubMed](https://pubmed.ncbi.nlm.nih.gov/40685627/), [ArXiv](https://arxiv.org/abs/2409.04290).
 - Installation: `pip install coxkan`
 - Documentation: [Read-the-Docs](https://coxkan.readthedocs.io/en/latest/).
 - Quick-start: `tutorials/intro.ipynb`
