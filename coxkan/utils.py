@@ -12,7 +12,7 @@ import sympy
 from lifelines.utils import concordance_index
 import warnings
 import scipy.stats as st
-from kan.utils import fit_params, SYMBOLIC_LIB
+from ..oldkan.utils import fit_params, SYMBOLIC_LIB
 
 # remove 'arcsin' from the symbolic library
 del SYMBOLIC_LIB['arcsin']

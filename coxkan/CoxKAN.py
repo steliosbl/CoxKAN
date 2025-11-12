@@ -3,15 +3,15 @@ Main module for CoxKAN class.
 """
 
 import torch
-from kan import KAN
-from kan.LBFGS import LBFGS
+from ..oldkan import KAN
+from ..oldkan.LBFGS import LBFGS
 from lifelines.utils import concordance_index
 import copy
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import sympy
-from kan.utils import fit_params
+from ..oldkan.utils import fit_params
 import os
 from tqdm import tqdm
 from pathlib import Path
@@ -935,7 +935,7 @@ class CoxKAN(KAN):
                 x = [sympy.symbols(var_.replace(' ', '_')) for var_ in self.covariates]
             else:
                 for ii in range(1, self.width[0] + 1):
-                    exec(f"x{ii} = sympy.Symbol('x_{ii}')")
+                    exec(f"x{ii} = sympy.Symbol('x_{ii}')", globals()) # SBL - Patch https://github.com/KindXiaoming/pykan/pull/542
                     exec(f"x.append(x{ii})")
         else:
             x = [sympy.symbols(var_.replace(' ', '_')) for var_ in var]
@@ -1022,7 +1022,7 @@ class CoxKAN(KAN):
 
     def load_ckpt(self, ckpt_path, verbose=True):
         ''' Load model from checkpoint '''
-        state = torch.load(ckpt_path)
+        state = torch.load(ckpt_path, weights_only=False)
         self.load_state_dict(state['state_dict'])
         for k, v in state.items():
             if k != 'state_dict':

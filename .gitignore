@@ -51,3 +51,4 @@ data/TCGA/*
 data/name_recovery/
 !data/TCGA/README.md
 CoxKAN-supp
+model/*
