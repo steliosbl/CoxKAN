@@ -25,8 +25,8 @@ import uuid
 import warnings
 
 # add project root to sys.path
-project_root = str(Path(__file__).resolve().parent.parent)
-sys.path.append(str(project_root))
+project_root = str(Path(__file__).resolve().parent.parent.parent)
+sys.path.insert(0, str(project_root))
 
 from coxkan import CoxKAN
 from coxkan.datasets import gbsg, metabric, support, nwtco, flchain

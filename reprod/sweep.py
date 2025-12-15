@@ -21,7 +21,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 
 # add project root to sys.path
-project_root = str(Path(__file__).resolve().parent.parent)
+project_root = str(Path(__file__).resolve().parent.parent.parent)
 sys.path.append(str(project_root))
 
 from coxkan.datasets import nwtco, flchain, support, metabric, gbsg, create_dataset
