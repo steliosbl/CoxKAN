@@ -757,17 +757,17 @@ class KAN(nn.Module):
         if in_vars != None:
             n = self.width[0]
             for i in range(n):
-                plt.gcf().get_axes()[0].text(1/(2*(n))+i/(n),-0.1,in_vars[i], fontsize=40*scale,horizontalalignment='center', verticalalignment='center')
+                plt.gcf().get_axes()[0].text(1/(2*(n))+i/(n),-0.1,in_vars[i], fontsize=10*scale,horizontalalignment='center', verticalalignment='center')
                 
                 
         if out_vars != None:
             n = self.width[-1]
             for i in range(n):
-                plt.gcf().get_axes()[0].text(1/(2*(n))+i/(n),y0*(len(self.width)-1)+0.1,out_vars[i], fontsize=40*scale,horizontalalignment='center',verticalalignment='center')
+                plt.gcf().get_axes()[0].text(1/(2*(n))+i/(n),y0*(len(self.width)-1)+0.1,out_vars[i], fontsize=10*scale,horizontalalignment='center',verticalalignment='center')
                 
 
         if title != None:
-            plt.gcf().get_axes()[0].text(0.5,y0*(len(self.width)-1)+0.2,title, fontsize=40*scale,horizontalalignment='center',verticalalignment='center')
+            plt.gcf().get_axes()[0].text(0.5,y0*(len(self.width)-1)+0.2,title, fontsize=10*scale,horizontalalignment='center',verticalalignment='center')
         
                     
                     

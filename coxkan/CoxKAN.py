@@ -17,6 +17,7 @@ from tqdm import tqdm
 from pathlib import Path
 import uuid
 from torch import Tensor
+import traceback
 
 from .utils import FastCoxLoss, categorical_fun, Logger, SYMBOLIC_LIB
 
@@ -970,7 +971,7 @@ class CoxKAN(KAN):
                         else:
                             yj += c * sympy_fun(a * x[i] + b) + d
                     except Exception as e:
-                        print('Error: ', e)
+                        print('Error: ', traceback.format_exc())
                 if simplify == True:
                     y.append(sympy.simplify(yj + self.biases[l].weight.data[0, j]))
                 else:
