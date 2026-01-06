@@ -17,7 +17,8 @@ from ..oldkan.utils import fit_params, SYMBOLIC_LIB
 # remove 'arcsin' from the symbolic library
 del SYMBOLIC_LIB['arcsin']
 
-def bootstrap_metric(metric_fn, df, N=100):
+def bootstrap_metric_old(metric_fn, df, N=100):
+    # SBL: This is the original, incorrect bootstrapping method originally published in CoxKAN
     """
     Bootstrap the confidence interval of a metric.
 
@@ -57,6 +58,50 @@ def bootstrap_metric(metric_fn, df, N=100):
         'confidence_interval': conf_interval,
         'formatted': f"{metric_fn(df):.6f} ({conf_interval[0]:.3f}, {conf_interval[1]:.3f})"
     }
+
+def bootstrap_metric_new_sbl(metric_fn, df, N=100):
+    # SBL: This is the new, correctly scaled version of the bootstrapping method 
+    """
+    Bootstrap the confidence interval of a metric.
+
+    Args:
+    -----
+        metric_fn : callable
+            Metric function that takes a DataFrame as input.
+        df : pd.DataFrame
+            DataFrame to bootstrap.
+        N : int
+            Number of bootstrap samples. The default is 100.
+
+    Returns:
+    --------
+        results : dict
+            results['full'], metric of the full dataset.
+            results['mean'], mean of the bootstrap samples.
+            results['confidence_interval'], 95% confidence interval of the metric.
+            results['formatted'], formatted string of the metric and confidence interval.
+    """
+
+    metrics = []
+    size = len(df)
+
+    for _ in range(N):
+        resample_idx = np.random.choice(size, size=size, replace=True)
+        df_ = df.iloc[resample_idx]
+        df_ = df_.reset_index(drop=True)
+        metric = metric_fn(df_)
+        metrics.append(metric)
+    
+    mean = np.mean(metrics)
+    conf_interval = st.t.interval(0.95, len(metrics)-1, loc=mean, scale=st.std(metrics)) # SBL: changed to st.std from st.sem
+    return {
+        'full': metric_fn(df),
+        'mean': mean,
+        'confidence_interval': conf_interval,
+        'formatted': f"{metric_fn(df):.6f} ({conf_interval[0]:.3f}, {conf_interval[1]:.3f})"
+    }
+
+bootstrap_metric = bootstrap_metric_new_sbl
 
 class Logger:
     """
