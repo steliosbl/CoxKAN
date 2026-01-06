@@ -93,7 +93,7 @@ def bootstrap_metric_new_sbl(metric_fn, df, N=100):
         metrics.append(metric)
     
     mean = np.mean(metrics)
-    conf_interval = st.t.interval(0.95, len(metrics)-1, loc=mean, scale=st.std(metrics)) # SBL: changed to st.std from st.sem
+    conf_interval = st.t.interval(0.95, len(metrics)-1, loc=mean, scale=st.tstd(metrics)) # SBL: changed to st.std from st.sem
     return {
         'full': metric_fn(df),
         'mean': mean,
